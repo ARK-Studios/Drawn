@@ -14,11 +14,13 @@ public class PerspectiveManager : Singleton<PerspectiveManager>
     public void RegisterCamera(AbstractCamera camera)
     {
         registeredCameras.Add(camera);
+        Debug.Log("Camera Registered");
     }
 
     public void DeregisterCamera(AbstractCamera camera)
     {
         registeredCameras.Remove(camera);
+        Debug.Log("Camera DeRegistered");
     }
 
     private void DetermineRestriction(float viewport, eCameraBoundEntryAxis entryVector, ref eAxisRestriction restriction)
@@ -51,14 +53,11 @@ public class PerspectiveManager : Singleton<PerspectiveManager>
 
         foreach(AbstractCamera cam in registeredCameras)
         {
-            if (cameraBound.GetComponent<Renderer>().IsVisibleFrom(cam.GetComponent<Camera>()))
-            {
-                CameraMovementRestrictions restriction = new CameraMovementRestrictions();
-                Vector3 viewPos = cam.GetComponent<Camera>().WorldToViewportPoint(cameraBound.transform.position);
-                DetermineRestriction(viewPos.x, cameraBound.onXEntry, ref restriction.xAxis);
-                DetermineRestriction(viewPos.y, cameraBound.onYEntry, ref restriction.yAxis);
-                cam.RegisterBound(cam.GetInstanceID(), restriction);
-            }
+            CameraMovementRestrictions restriction = new CameraMovementRestrictions();
+            Vector3 viewPos = cam.GetComponent<Camera>().WorldToViewportPoint(cameraBound.transform.position);
+            DetermineRestriction(viewPos.x, cameraBound.onXEntry, ref restriction.xAxis);
+            DetermineRestriction(viewPos.y, cameraBound.onYEntry, ref restriction.yAxis);
+            cam.RegisterBound(cam.GetInstanceID(), restriction);
         }
     }
 
@@ -70,13 +69,10 @@ public class PerspectiveManager : Singleton<PerspectiveManager>
 
         foreach (AbstractCamera cam in registeredCameras)
         {
-            if (!cameraBound.GetComponent<Renderer>().IsVisibleFrom(cam.GetComponent<Camera>()))
-            {
-                ARKLogger.LogMessage(eLogCategory.Control,
-                                     eLogLevel.Info,
-                                     "Not Visible");
-                cam.DeregisterBound(cam.GetInstanceID());
-            }
+            ARKLogger.LogMessage(eLogCategory.Control,
+                                 eLogLevel.Info,
+                                 "Not Visible");
+            cam.DeregisterBound(cam.GetInstanceID());
         }
     }
 }

@@ -8,10 +8,10 @@ namespace Assets.Scripts.Perspective.Cameras
     {
         public float xMargin = 1f;      // Distance in the x axis the player can move before the camera follows.
         public float yMargin = 1f;      // Distance in the y axis the player can move before the camera follows.
-        public float xSmooth = 8f;      // How smoothly the camera catches up with it's target movement in the x axis.
-        public float ySmooth = 8f;      // How smoothly the camera catches up with it's target movement in the y axis.
-        public Vector2 maxXAndY;        // The maximum x and y coordinates the camera can have.
-        public Vector2 minXAndY;        // The minimum x and y coordinates the camera can have.
+        public float xSmooth = 100f;      // How smoothly the camera catches up with it's target movement in the x axis.
+        public float ySmooth = 100f;      // How smoothly the camera catches up with it's target movement in the y axis.
+        public Vector2 maxXAndY = new Vector2(1000, 1000);        // The maximum x and y coordinates the camera can have.
+        public Vector2 minXAndY = new Vector2(-1000, -1000);        // The minimum x and y coordinates the camera can have.
 
 
         override public void OnEnable()
@@ -43,6 +43,13 @@ namespace Assets.Scripts.Perspective.Cameras
         }
 
 
+        public void Update()
+        {
+            // Update the Cameras Position
+            UpdatePosition();
+        }
+
+
         override public void UpdatePosition()
         {
             // By default the target x and y coordinates of the camera are it's current x and y coordinates.
@@ -51,13 +58,17 @@ namespace Assets.Scripts.Perspective.Cameras
 
             // If the player has moved beyond the x margin...
             if (CheckXMargin())
+            {
                 // ... the target x coordinate should be a Lerp between the camera's current x position and the player's current x position.
                 targetX = Mathf.Lerp(transform.position.x, this.target.position.x, xSmooth * Time.deltaTime);
+            }
 
             // If the player has moved beyond the y margin...
             if (CheckYMargin())
+            {
                 // ... the target y coordinate should be a Lerp between the camera's current y position and the player's current y position.
                 targetY = Mathf.Lerp(transform.position.y, this.target.position.y, ySmooth * Time.deltaTime);
+            }
 
             // The target x and y coordinates should not be larger than the maximum or smaller than the minimum.
             targetX = Mathf.Clamp(targetX, minXAndY.x, maxXAndY.x);

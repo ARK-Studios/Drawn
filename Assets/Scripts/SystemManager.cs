@@ -27,17 +27,18 @@ using Assets.Scripts.CustomEditor;
 
 class SystemManager : Singleton<SystemManager>
 {
-    private ARKLogger   _logger = new ARKLogger();
+    private ARKLogger _logger = new ARKLogger();
 
     private Component[] _managers;
 
     // --------------------------------------------------------------------
     public string GameTitle = "Default Game Title";
-    [ReadOnly]
-    public bool DisplayedLogo = false;
 
     // --------------------------------------------------------------------
     private string _CurrentScene;
+    private string _TransitionTo;
+
+    private string __TransitionScene = "Transition";
 
     // --------------------------------------------------------------------
 #if !FINAL
@@ -67,17 +68,25 @@ class SystemManager : Singleton<SystemManager>
                 manager.Init();
             }
         }
-        
-        // Are we in the Application Scene?
-        if (SceneManager.GetActiveScene().name == "Entry")
-        {
-            LoadScene("Launcher");
-        }
 
         // Make sure this object persists between scene loads.
         DontDestroyOnLoad(gameObject);
     }
-    
+
+    //-------------------------------------------------------------------------------------------------------------------------
+    public bool TransitionToScene(string sceneName)
+    {
+        this._TransitionTo = sceneName;
+        return this.LoadScene(this.__TransitionScene);
+    }
+
+    //-------------------------------------------------------------------------------------------------------------------------
+    public string GetSceneToLoad()
+    {
+        return _TransitionTo;
+    }
+
+    //-------------------------------------------------------------------------------------------------------------------------
     public bool LoadScene(string sceneName)
     {
         this._CurrentScene = sceneName;
@@ -90,7 +99,7 @@ class SystemManager : Singleton<SystemManager>
     {
         ARKLogger.LogMessage(eLogCategory.Control,
                              eLogLevel.Info,
-                             "SceneLoader: Loading Level, " + level);
+                             "SceneLoader: Loading Level ( " + level + " )");
 
         _CurrentScene = level;
         SceneManager.LoadScene(this._CurrentScene);
@@ -101,7 +110,7 @@ class SystemManager : Singleton<SystemManager>
     {
         ARKLogger.LogMessage(eLogCategory.Control,
                              eLogLevel.Info,
-                             "SceneLoader: Restarting Level, " + _CurrentScene);
+                             "SceneLoader: Restarting Level (" + _CurrentScene + " )");
 
         SceneManager.LoadScene(this._CurrentScene);
     }

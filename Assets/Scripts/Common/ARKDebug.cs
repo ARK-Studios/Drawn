@@ -10,6 +10,7 @@ namespace Assets.Scripts.Common
         // Use this for initialization
         void Awake()
         {
+#if !FINAL
             if (null == SystemManager.Instance)
             {
                 Instantiate(managers);
@@ -17,6 +18,7 @@ namespace Assets.Scripts.Common
                                      eLogLevel.Info,
                                      "Instantiated Debug Managers.");
             }
+#endif
         }
     }
 }

@@ -35,6 +35,11 @@ namespace Assets.Scripts.Utility.Timers
         public bool triggered = false;
 
         /// <summary>
+        /// Determines if the Timer is running or stalled.
+        /// </summary>
+        public bool runningState = false;
+
+        /// <summary>
         /// Allows the timer to rollover on timeout
         /// if enabled.
         /// </summary>
@@ -63,6 +68,23 @@ namespace Assets.Scripts.Utility.Timers
             enableRollover = rollover;
             internalCount = 0;
             triggered = false;
+        }
+
+        /// <summary>
+        /// Start the timer.
+        /// </summary>
+        public virtual void Start()
+        {
+            // Set the Start Flag
+            runningState = true;
+        }
+
+        /// <summary>
+        /// Stop the timer.
+        /// </summary>
+        public virtual void Stop()
+        {
+            runningState = false;
         }
 
         /// <summary>
@@ -127,24 +149,29 @@ namespace Assets.Scripts.Utility.Timers
         /// </summary>
         public void Update()
         {
-            // If timer hasn't triggered, or rollover is enabled
-            if (!triggered || enableRollover)
+            // If the Timer is running, update the time
+            if (runningState)
             {
-                // Update the count
-                InternalUpdate();
 
-                // If the count has now reached the timeout
-                if (internalCount >= timeout)
+                // If timer hasn't triggered, or rollover is enabled
+                if (!triggered || enableRollover)
                 {
-                    // If Rollover is enabled
-                    if (enableRollover)
-                    {
-                        // Make the internal count the overrun
-                        internalCount = internalCount % timeout;
-                    }
+                    // Update the count
+                    InternalUpdate();
 
-                    // Set the timeout completion flag
-                    triggered = true;
+                    // If the count has now reached the timeout
+                    if (internalCount >= timeout)
+                    {
+                        // If Rollover is enabled
+                        if (enableRollover)
+                        {
+                            // Make the internal count the overrun
+                            internalCount = internalCount % timeout;
+                        }
+
+                        // Set the timeout completion flag
+                        triggered = true;
+                    }
                 }
             }
         }
