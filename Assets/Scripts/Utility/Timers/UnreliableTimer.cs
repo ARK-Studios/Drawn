@@ -29,11 +29,6 @@ namespace Assets.Scripts.Utility.Timers
     public class UnreliableTimer : AbstractTimer
     {
         /// <summary>
-        /// Determines if the Timer is running or stalled.
-        /// </summary>
-        public bool runningState = false;
-
-        /// <summary>
         /// Used to determine the amount of time to add
         /// to the timer count.
         /// </summary>
@@ -50,21 +45,12 @@ namespace Assets.Scripts.Utility.Timers
         /// <summary>
         /// Start the timer.
         /// </summary>
-        public void Start()
+        public override void Start()
         {
             // Set the time of initialization
             timeOfLastUpdate = Time.time;
 
-            // Set the Start Flag
-            runningState = true;
-        }
-
-        /// <summary>
-        /// Stop the timer.
-        /// </summary>
-        public void Stop()
-        {
-            runningState = false;
+            base.Start();
         }
 
         /// <summary>
@@ -75,15 +61,13 @@ namespace Assets.Scripts.Utility.Timers
         /// </summary>
         protected override void InternalUpdate()
         {
-            // If the Timer is running, update the time
-            if (runningState)
-            {
-                // Find the difference in time since the last update
-                float difference = Time.time - timeOfLastUpdate;
+            // Find the difference in time since the last update
+            float difference = Time.time - timeOfLastUpdate;
 
-                // Add the difference to the internal count
-                internalCount += difference;
-            }
+            // Add the difference to the internal count
+            internalCount += difference;
+
+            timeOfLastUpdate = Time.time;
         }
     }
 }

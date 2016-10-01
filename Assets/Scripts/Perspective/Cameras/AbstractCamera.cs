@@ -231,11 +231,13 @@ namespace Assets.Scripts.Perspective.Cameras
             if ( false == restrictionList.TryGetValue(id, out dummy))
             {
                 restrictionList.Add(id, restriction);
+                Debug.Log("Restriction Added");
             }
             else
             {
                 restrictionList.Remove(id);
                 restrictionList.Add(id, restriction);
+                Debug.Log("Restriction Replaced");
             }
         }
 
@@ -245,6 +247,7 @@ namespace Assets.Scripts.Perspective.Cameras
         public virtual void DeregisterBound(int id)
         {
             restrictionList.Remove(id);
+            Debug.Log("Restriction Removed");
         }
     }
 }

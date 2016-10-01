@@ -1,17 +1,14 @@
 ﻿using UnityEngine;
-using System.Collections;
-using Assets.Scripts;
 using Assets.Scripts.Utility;
 
 namespace Assets.Scripts.Menu
 {
-    public class SceneSelector : MonoBehaviour
+    public class LaunchMenu : MonoBehaviour
     {
         //------------------------------------------------------------
         enum EMainMenuState
         {
             Startup,
-            DisplayLogo,
             Menu,
         };
 
@@ -19,15 +16,13 @@ namespace Assets.Scripts.Menu
         enum EMenuButtonId
         {
             None,
-
             StartGame,
             Quit,
         };
         
         //------------------------------------------------------------
-        private EMainMenuState StateId;
-        private EMenuButtonId ButtonId;
-        private float LogoDisplayTimer;
+        private EMainMenuState stateId;
+        private EMenuButtonId buttonId;
 
         //------------------------------------------------------------
         void Start()
@@ -36,14 +31,14 @@ namespace Assets.Scripts.Menu
                                  eLogLevel.Info, 
                                  "MainMenu: Starting.");
 
-            StateId = EMainMenuState.Startup;
-            ButtonId = EMenuButtonId.None;
+            this.stateId = EMainMenuState.Startup;
+            this.buttonId = EMenuButtonId.None;
         }
 
         //------------------------------------------------------------
         void Update()
         {
-            switch (StateId)
+            switch (this.stateId)
             {
                 case EMainMenuState.Startup:
                     ARKLogger.LogMessage(eLogCategory.Control,
@@ -51,35 +46,21 @@ namespace Assets.Scripts.Menu
                                       "MainMenu: State: Startup.");
 
                     // Here we would do any menu preparation work.
-
-                    // Has the logo been displayed already?
-                    if (SystemManager.Instance.DisplayedLogo)
-                        // Move to the next state.
-                        StateId = EMainMenuState.Menu;
-                    else
-                    {
-                        SystemManager.Instance.DisplayedLogo = true;
-                        StateId = EMainMenuState.DisplayLogo;
-                        LogoDisplayTimer = 1.0f;
-                    }
+                    
+                    // Here we would transition through UI appear animations
+                    // but for now we lets just go into menu input phase
+                    this.stateId = EMainMenuState.Menu;
                     break;
-
-                case EMainMenuState.DisplayLogo:
-                    LogoDisplayTimer -= Time.deltaTime;
-
-                    if (LogoDisplayTimer < 0.0f)
-                        StateId = EMainMenuState.Menu;
-                    break;
-
+                    
                 case EMainMenuState.Menu:
-                    if (ButtonId == EMenuButtonId.StartGame)
+                    if (this.buttonId == EMenuButtonId.StartGame)
                     {
                         ARKLogger.LogMessage(eLogCategory.Control,
                                              eLogLevel.Info,                                                                                    
                                              "MainMenu: Prototype Scene Selected.");
-                        SystemManager.Instance.LoadLevelSync("Scene1");
+                        SystemManager.Instance.TransitionToScene("Scene2");
                     }
-                    else if (ButtonId == EMenuButtonId.Quit)
+                    else if (this.buttonId == EMenuButtonId.Quit)
                     {
                         ARKLogger.LogMessage(eLogCategory.Control,
                                              eLogLevel.Info,
@@ -87,7 +68,7 @@ namespace Assets.Scripts.Menu
                         SystemManager.Instance.Quit();
                     }
 
-                    ButtonId = EMenuButtonId.None;
+                    this.buttonId = EMenuButtonId.None;
                     break;
 
                 default:
@@ -96,7 +77,7 @@ namespace Assets.Scripts.Menu
                                          "Really shouldn't be here... illegal state id set.");
 
                     // Auto recover.
-                    StateId = EMainMenuState.Startup;
+                    this.stateId = EMainMenuState.Startup;
                     break;
             }
         }
@@ -104,21 +85,14 @@ namespace Assets.Scripts.Menu
         //-----------------------------------------------------------------
         void OnGUI()                                                                                                 
         {
-            if (StateId == EMainMenuState.DisplayLogo)
+            if (GUI.Button(new Rect(200.0f, 100.0f, 300.0f, 100.0f), "Start Game"))
             {
-                GUI.Button(new Rect(100.0f, 100.0f, 500.0f, 500.0f), "BIG LOGO DISPLAYED HERE!");
+                this.buttonId = EMenuButtonId.StartGame;
             }
-            else
-            {
-                if (GUI.Button(new Rect(200.0f, 100.0f, 300.0f, 100.0f), "Start Game"))
-                {
-                    ButtonId = EMenuButtonId.StartGame;
-                }
 
-                if (GUI.Button(new Rect(200.0f, 350.0f, 300.0f, 100.0f), "Quit"))
-                {
-                    ButtonId = EMenuButtonId.Quit;                                                  
-                }
+            if (GUI.Button(new Rect(200.0f, 350.0f, 300.0f, 100.0f), "Quit"))
+            {
+                this.buttonId = EMenuButtonId.Quit;                                                  
             }
         }
     }
