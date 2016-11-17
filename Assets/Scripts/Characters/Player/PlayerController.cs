@@ -1,19 +1,20 @@
 using System;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
+using ARK.Player;
 
-namespace UnityStandardAssets._2D
+namespace ARK.Player.Controller
 {
-    [RequireComponent(typeof (PlatformerCharacter2D))]
-    public class Platformer2DUserControl : MonoBehaviour
+    [RequireComponent(typeof (PlayerProfile))]
+    public class PlayerController : MonoBehaviour
     {
-        private PlatformerCharacter2D m_Character;
+        private PlayerProfile m_Character;
         private bool m_Jump;
 
 
         private void Awake()
         {
-            m_Character = GetComponent<PlatformerCharacter2D>();
+            m_Character = GetComponent<PlayerProfile>();
         }
 
 

@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Assets.Scripts.Utility;
+using ARK.Player;
 
 public class Respawn : MonoBehaviour {
     public Vector2 origCharPos;
-    public bool dead = false;
     public bool respawn = false;
+    public PlayerProfile player;
 
     public void RespawnChar(Rigidbody2D character)
     {
@@ -21,15 +22,6 @@ public class Respawn : MonoBehaviour {
                 eLogLevel.Info,
                 "Respawn");
             respawn = false;
-            dead = false;
-        }
-    }
-
-    void OnGUI()
-    {
-        if (dead && (GUI.Button(new Rect(200.0f, 100.0f, 300.0f, 100.0f), "Respawn")))
-        {
-            respawn = true;
         }
     }
 }
