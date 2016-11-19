@@ -145,7 +145,7 @@ namespace Assets.Scripts.Perspective.Cameras
         /// <summary>
         /// Controls the Camera actions every Frame.
         /// </summary>
-        public void FixedUpdate()
+        public void Update()
         {
             // Update the Cameras Position
             UpdatePosition();
@@ -179,44 +179,44 @@ namespace Assets.Scripts.Perspective.Cameras
             restrictions = newRestriction;
         }
 
-        public void SetPosition(float x, float y, float z)
+        public void SetPosition(Vector3 pos)
         {
             float tempX, tempY, tempZ;
-
+            
             // Calculate Lock status
             UpdateMovementRestrictions();
-
+            
             if ( (restrictions.xAxis == eAxisRestriction.AxisRestrictionBoth) || 
-                (((x - this.transform.position.x) < 0) && (restrictions.xAxis == eAxisRestriction.AxisRestrictionNegative)) ||
-                (((x - this.transform.position.x) > 0) && (restrictions.xAxis == eAxisRestriction.AxisRestrictionPositive)))
+                (((pos.x - this.transform.position.x) < 0) && (restrictions.xAxis == eAxisRestriction.AxisRestrictionNegative)) ||
+                (((pos.x - this.transform.position.x) > 0) && (restrictions.xAxis == eAxisRestriction.AxisRestrictionPositive)))
             {
                 tempX = this.transform.position.x;
             }
             else
             {
-                tempX = x;
+                tempX = pos.x;
             }
-
+            
             if ((restrictions.yAxis == eAxisRestriction.AxisRestrictionBoth) ||
-                (((y - this.transform.position.y) < 0) && (restrictions.yAxis == eAxisRestriction.AxisRestrictionNegative)) ||
-                (((y - this.transform.position.y) > 0) && (restrictions.yAxis == eAxisRestriction.AxisRestrictionPositive)))
+                (((pos.y - this.transform.position.y) < 0) && (restrictions.yAxis == eAxisRestriction.AxisRestrictionNegative)) ||
+                (((pos.y - this.transform.position.y) > 0) && (restrictions.yAxis == eAxisRestriction.AxisRestrictionPositive)))
             {
                 tempY = this.transform.position.y;
             }
             else
             {
-                tempY = y;
+                tempY = pos.y;
             }
-
+            
             if ((restrictions.zAxis == eAxisRestriction.AxisRestrictionBoth) ||
-                (((z - this.transform.position.z) < 0) && (restrictions.zAxis == eAxisRestriction.AxisRestrictionNegative)) ||
-                (((z - this.transform.position.z) > 0) && (restrictions.zAxis == eAxisRestriction.AxisRestrictionPositive)))
+                (((pos.z - this.transform.position.z) < 0) && (restrictions.zAxis == eAxisRestriction.AxisRestrictionNegative)) ||
+                (((pos.z - this.transform.position.z) > 0) && (restrictions.zAxis == eAxisRestriction.AxisRestrictionPositive)))
             {
                 tempZ = this.transform.position.z;
             }
             else
             {
-                tempZ = z;
+                tempZ = pos.z;
             }
             this.transform.position = new Vector3(tempX, tempY, tempZ);
         }

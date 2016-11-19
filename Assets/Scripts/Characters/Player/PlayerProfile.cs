@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Spine.Unity;
 using Assets.Scripts.Utility;
 
 namespace ARK.Player
@@ -8,37 +9,66 @@ namespace ARK.Player
     {
         [SerializeField] private float m_MaxSpeed = 10f;                    // The fastest the player can travel in the x axis.
         [SerializeField] private float m_JumpForce = 400f;                  // Amount of force added when the player jumps.
-        [Range(0, 1)] [SerializeField] private float m_CrouchSpeed = .36f;  // Amount of maxSpeed applied to crouching movement. 1 = 100%
         [SerializeField] private bool m_AirControl = false;                 // Whether or not a player can steer while jumping;
         [SerializeField] private LayerMask m_WhatIsGround;                  // A mask determining what is ground to the character
         [SerializeField] public int lives;
 
+        #region Inspector
+        // [SpineAnimation] attribute allows an Inspector dropdown of Spine animation names coming form SkeletonAnimation.
+        [SpineAnimation]
+        public string runAnimationName = "Move";
+
+        [SpineAnimation]
+        public string idleAnimationName = "Idle";
+
+        [SpineAnimation]
+        public string jumpAnimationName = "Jump";
+
+        [SpineAnimation]
+        public string fallAnimationName = "Fall";
+        #endregion
+
         private Transform m_GroundCheck;    // A position marking where to check if the player is grounded.
-        const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
+        public float k_GroundedRadius = .4f; // Radius of the overlap circle to determine if grounded
         private bool m_Grounded;            // Whether or not the player is grounded.
+        private bool m_Falling;
         const float lowBound = -20;        // Lower bound to check if the player is dead
         private bool m_fell = false;        // For determining if player has fallen
         private Transform m_CeilingCheck;   // A position marking where to check for ceilings
         const float k_CeilingRadius = .01f; // Radius of the overlap circle to determine if the player can stand up
-        private Animator m_Anim;            // Reference to the player's animator component.
         private Rigidbody2D m_Rigidbody2D;
         private bool isDead;
         private bool m_FacingRight = true;  // For determining which way the player is currently facing.
 
         private Respawn respawnChar;
+        // Spine.AnimationState and Spine.Skeleton are not Unity-serialized objects. You will not see them as fields in the inspector.
+        public Spine.AnimationState spineAnimationState;
+        public Spine.Skeleton skeleton;
+
+        SkeletonAnimation skeletonAnimation;
+
+        string currentXAnimation = "Idle";
+        string currentYAnimation = "None";
 
         private void Awake()
         {
             // Setting up references.
             m_GroundCheck = transform.Find("GroundCheck");
             m_CeilingCheck = transform.Find("CeilingCheck");
-            m_Anim = GetComponent<Animator>();
             m_Rigidbody2D = GetComponent<Rigidbody2D>();
+            m_Falling = false
             respawnChar = GetComponent<Respawn>();
             respawnChar.origCharPos = m_Rigidbody2D.position;
             isDead = false;
         }
 
+        private void Start()
+        {
+            // Make sure you get these AnimationState and Skeleton references in Start or Later. Getting and using them in Awake is not guaranteed by default execution order.
+            skeletonAnimation = GetComponent<SkeletonAnimation>();
+            spineAnimationState = skeletonAnimation.state;
+            skeleton = skeletonAnimation.skeleton;
+        }
 
         private void FixedUpdate()
         {
@@ -52,10 +82,6 @@ namespace ARK.Player
                 if (colliders[i].gameObject != gameObject)
                     m_Grounded = true;
             }
-            m_Anim.SetBool("Ground", m_Grounded);
-
-            // Set the vertical animation
-            m_Anim.SetFloat("vSpeed", m_Rigidbody2D.velocity.y);
         }
 
         public void FallOff_Check()
@@ -90,30 +116,13 @@ namespace ARK.Player
                 lives = 0;
             }
         }
+
         public void Move(float move, bool crouch, bool jump)
         {
-            // If crouching, check to see if the character can stand up
-            if (!crouch && m_Anim.GetBool("Crouch"))
-            {
-                // If the character has a ceiling preventing them from standing up, keep them crouching
-                if (Physics2D.OverlapCircle(m_CeilingCheck.position, k_CeilingRadius, m_WhatIsGround))
-                {
-                    crouch = true;
-                }
-            }
-
-            // Set whether or not the character is crouching in the animator
-            m_Anim.SetBool("Crouch", crouch);
 
             //only control the player if grounded or airControl is turned on
             if (m_Grounded || m_AirControl)
             {
-                // Reduce the speed if crouching by the crouchSpeed multiplier
-                move = (crouch ? move*m_CrouchSpeed : move);
-
-                // The Speed animator parameter is set to the absolute value of the horizontal input.
-                m_Anim.SetFloat("Speed", Mathf.Abs(move));
-
                 // Move the character
                 m_Rigidbody2D.velocity = new Vector2(move*m_MaxSpeed, m_Rigidbody2D.velocity.y);
 
@@ -130,15 +139,48 @@ namespace ARK.Player
                     Flip();
                 }
             }
+
             // If the player should jump...
-            if (m_Grounded && jump && m_Anim.GetBool("Ground"))
+            if (m_Grounded && jump)
             {
-                // Add a vertical force to the player.
-                m_Grounded = false;
-                m_Anim.SetBool("Ground", false);
                 m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
             }
-            FallOff_Check();
+            
+            
+            if (m_Rigidbody2D.velocity.x == 0 && currentXAnimation == runAnimationName)
+            {
+                skeletonAnimation.state.SetAnimation(0, idleAnimationName, true);
+                currentXAnimation = idleAnimationName;
+            }
+            else if (m_Rigidbody2D.velocity.x != 0 && currentXAnimation == idleAnimationName)
+            {
+                skeletonAnimation.state.SetAnimation(0, runAnimationName, true);
+                currentXAnimation = runAnimationName;
+            }
+
+            if (m_Grounded && m_Rigidbody2D.velocity.y > 0)
+            {
+                skeletonAnimation.state.SetAnimation(1, jumpAnimationName, false);
+            }
+            else if (!m_Grounded && !m_Falling && m_Rigidbody2D.velocity.y < 0)
+            {
+                skeletonAnimation.state.SetAnimation(1, fallAnimationName, false);
+                m_Falling = true;
+            }
+            else if (m_Grounded && m_Rigidbody2D.velocity.y == 0)
+            {
+                skeletonAnimation.state.SetEmptyAnimation(1, 0.5f);
+            }
+
+            if (m_Grounded)
+            {
+                m_Falling = false;
+            }
+
+            if (m_Grounded && jump)
+            {
+                m_Grounded = false;
+            }
         }
 
 
@@ -147,10 +189,7 @@ namespace ARK.Player
             // Switch the way the player is labelled as facing.
             m_FacingRight = !m_FacingRight;
 
-            // Multiply the player's x local scale by -1.
-            Vector3 theScale = transform.localScale;
-            theScale.x *= -1;
-            transform.localScale = theScale;
+            skeletonAnimation.skeleton.FlipX = !m_FacingRight;
         }
     }
 }

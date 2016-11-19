@@ -1,0 +1,27 @@
+
+Drawn.png
+size: 256,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+LeftEye
+  rotate: false
+  xy: 135, 19
+  size: 62, 55
+  orig: 62, 55
+  offset: 0, 0
+  index: -1
+Mouth
+  rotate: false
+  xy: 2, 2
+  size: 131, 72
+  orig: 131, 72
+  offset: 0, 0
+  index: -1
+RightEye
+  rotate: true
+  xy: 199, 13
+  size: 61, 52
+  orig: 61, 52
+  offset: 0, 0
+  index: -1
