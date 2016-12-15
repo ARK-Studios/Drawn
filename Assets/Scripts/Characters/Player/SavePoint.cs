@@ -6,17 +6,25 @@ using ARK.Player;
 
 public class SavePoint : MonoBehaviour
 {
-    private SpriteRenderer savePtPic;
     public Sprite active;
     public Sprite deactivated;
+    public SpriteRenderer savePtPic;
+    public PlayerProfile player;
+    public Collider2D savePoint;
 
     void Start ()
     {
         savePtPic = GetComponent<SpriteRenderer>();
-        if (savePtPic.sprite != active)
+        if (savePtPic.sprite != savePoint)
             savePtPic.sprite = active;
     }
-
+    void Update ()
+    {
+        if (player.currSavePt != savePoint)
+        {
+            savePtPic.sprite = active;
+        }
+    }
     void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.tag == "Player")

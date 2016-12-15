@@ -12,6 +12,7 @@ namespace ARK.Player
         [SerializeField] private bool m_AirControl = false;                 // Whether or not a player can steer while jumping;
         [SerializeField] private LayerMask m_WhatIsGround;                  // A mask determining what is ground to the character
         [SerializeField] public int lives;
+        public Collider2D currSavePt;
 
         private Transform m_GroundCheck;    // A position marking where to check if the player is grounded.
         const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
@@ -26,7 +27,7 @@ namespace ARK.Player
         private bool m_FacingRight = true;  // For determining which way the player is currently facing.
 
         private Respawn respawnChar;
-        private SavePoint savePt;
+        
 
         private void Awake()
         {
@@ -157,6 +158,14 @@ namespace ARK.Player
             Vector3 theScale = transform.localScale;
             theScale.x *= -1;
             transform.localScale = theScale;
+        }
+
+        void OnTriggerEnter2D(Collider2D collider)
+        {
+            if (collider.tag == "SavePt")
+            {
+                currSavePt = collider;
+            }
         }
     }
 }
