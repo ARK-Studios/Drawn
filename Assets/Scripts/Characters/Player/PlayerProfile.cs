@@ -26,6 +26,7 @@ namespace ARK.Player
         private bool m_FacingRight = true;  // For determining which way the player is currently facing.
 
         private Respawn respawnChar;
+        private SavePoint savePt;
 
         private void Awake()
         {
@@ -35,8 +36,9 @@ namespace ARK.Player
             m_Anim = GetComponent<Animator>();
             m_Rigidbody2D = GetComponent<Rigidbody2D>();
             respawnChar = GetComponent<Respawn>();
-            respawnChar.origCharPos = m_Rigidbody2D.position;
+            respawnChar.charSpawnPos = m_Rigidbody2D.position;
             isDead = false;
+            lives = 5;
         }
 
 
@@ -141,6 +143,10 @@ namespace ARK.Player
             FallOff_Check();
         }
 
+        public Vector2 CharacterPosition()
+        {
+            return m_Rigidbody2D.position;
+        }
 
         private void Flip()
         {
