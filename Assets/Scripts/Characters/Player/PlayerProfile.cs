@@ -12,6 +12,7 @@ namespace ARK.Player
         [SerializeField] private bool m_AirControl = false;                 // Whether or not a player can steer while jumping;
         [SerializeField] private LayerMask m_WhatIsGround;                  // A mask determining what is ground to the character
         [SerializeField] public int lives;
+        public Collider2D currSavePt;
 
         #region Inspector
         // [SpineAnimation] attribute allows an Inspector dropdown of Spine animation names coming form SkeletonAnimation.
@@ -59,8 +60,9 @@ namespace ARK.Player
             m_Falling = false;
 
             respawnChar = GetComponent<Respawn>();
-            respawnChar.origCharPos = m_Rigidbody2D.position;
+            respawnChar.charSpawnPos = m_Rigidbody2D.position;
             isDead = false;
+            lives = 5;
         }
 
         private void Start()
@@ -191,6 +193,10 @@ namespace ARK.Player
             FallOff_Check();
         }
 
+        public Vector2 CharacterPosition()
+        {
+            return m_Rigidbody2D.position;
+        }
 
         private void Flip()
         {
@@ -198,6 +204,14 @@ namespace ARK.Player
             m_FacingRight = !m_FacingRight;
 
             skeletonAnimation.skeleton.FlipX = !m_FacingRight;
+        }
+
+        void OnTriggerEnter2D(Collider2D collider)
+        {
+            if (collider.tag == "SavePt")
+            {
+                currSavePt = collider;
+            }
         }
     }
 }
