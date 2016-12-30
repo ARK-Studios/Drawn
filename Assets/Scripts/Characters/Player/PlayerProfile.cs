@@ -56,7 +56,8 @@ namespace ARK.Player
             m_GroundCheck = transform.Find("GroundCheck");
             m_CeilingCheck = transform.Find("CeilingCheck");
             m_Rigidbody2D = GetComponent<Rigidbody2D>();
-            m_Falling = false
+            m_Falling = false;
+
             respawnChar = GetComponent<Respawn>();
             respawnChar.origCharPos = m_Rigidbody2D.position;
             isDead = false;
@@ -161,15 +162,20 @@ namespace ARK.Player
             if (m_Grounded && m_Rigidbody2D.velocity.y > 0)
             {
                 skeletonAnimation.state.SetAnimation(1, jumpAnimationName, false);
+                currentYAnimation = jumpAnimationName;
             }
             else if (!m_Grounded && !m_Falling && m_Rigidbody2D.velocity.y < 0)
             {
                 skeletonAnimation.state.SetAnimation(1, fallAnimationName, false);
+                currentYAnimation = fallAnimationName;
                 m_Falling = true;
             }
             else if (m_Grounded && m_Rigidbody2D.velocity.y == 0)
             {
-                skeletonAnimation.state.SetEmptyAnimation(1, 0.5f);
+                ARKLogger.LogMessage(eLogCategory.Control,
+                    eLogLevel.Info,
+                    "Clearing Vertical Animation");
+                skeletonAnimation.state.SetEmptyAnimation(1, 1.0f);
             }
 
             if (m_Grounded)
@@ -181,6 +187,8 @@ namespace ARK.Player
             {
                 m_Grounded = false;
             }
+
+            FallOff_Check();
         }
 
 
