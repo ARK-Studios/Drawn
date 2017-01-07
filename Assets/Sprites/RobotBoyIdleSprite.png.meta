@@ -45,7 +45,7 @@ TextureImporter:
   bumpmap:
     convertToNormalMap: 0
     externalNormalMap: 0
-    heightScale: .25
+    heightScale: 0.25
     normalMapFilter: 0
   isReadable: 0
   grayScaleToAlpha: 0
@@ -65,13 +65,14 @@ TextureImporter:
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
+  allowsAlphaSplitting: 0
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
-  spritePivot: {x: .5, y: .5}
+  spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 200
+  spritePixelsToUnits: 256
   alphaIsTransparency: 1
   textureType: 8
   buildTargetSettings:
@@ -79,18 +80,22 @@ TextureImporter:
     maxTextureSize: 1024
     textureFormat: -2
     compressionQuality: 100
+    allowsAlphaSplitting: 0
   - buildTarget: Android
     maxTextureSize: 1024
     textureFormat: -1
     compressionQuality: 50
+    allowsAlphaSplitting: 0
   - buildTarget: BlackBerry
     maxTextureSize: 1024
     textureFormat: -1
     compressionQuality: 50
+    allowsAlphaSplitting: 0
   - buildTarget: WP8
     maxTextureSize: 1024
     textureFormat: -1
     compressionQuality: 50
+    allowsAlphaSplitting: 0
   spriteSheet:
     sprites:
     - name: RobotBoyIdle00
@@ -101,8 +106,18 @@ TextureImporter:
         width: 275
         height: 275
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -31.5, y: 96.5}
+        - {x: -38.5, y: 78.5}
+        - {x: -38.5, y: -67.5}
+        - {x: -29.5, y: -124.5}
+        - {x: -21.5, y: -127.5}
+        - {x: 32.5, y: -127.5}
+        - {x: 52.5, y: -16.5}
+        - {x: 52.5, y: 63.5}
+        - {x: 43.5, y: 96.5}
     - name: RobotBoyIdle01
       rect:
         serializedVersion: 2
@@ -111,8 +126,18 @@ TextureImporter:
         width: 275
         height: 275
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -32.5, y: 96.5}
+        - {x: -38.5, y: 92.5}
+        - {x: -38.5, y: -70.5}
+        - {x: -29.5, y: -123.5}
+        - {x: -23.5, y: -127.5}
+        - {x: 42.5, y: -127.5}
+        - {x: 53.5, y: -37.5}
+        - {x: 53.5, y: 95.5}
+        - {x: 51.5, y: 96.5}
     - name: RobotBoyIdle02
       rect:
         serializedVersion: 2
@@ -121,8 +146,17 @@ TextureImporter:
         width: 275
         height: 275
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -28.5, y: 96.5}
+        - {x: -38.5, y: 91.5}
+        - {x: -38.5, y: -72.5}
+        - {x: -28.5, y: -122.5}
+        - {x: -21.5, y: -127.5}
+        - {x: 46.5, y: -127.5}
+        - {x: 53.5, y: -59.5}
+        - {x: 53.5, y: 96.5}
     - name: RobotBoyIdle03
       rect:
         serializedVersion: 2
@@ -131,8 +165,16 @@ TextureImporter:
         width: 275
         height: 275
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -31.5, y: 96.5}
+        - {x: -38.5, y: 88.5}
+        - {x: -38.5, y: -127.5}
+        - {x: 33.5, y: -127.5}
+        - {x: 54.5, y: 6.5}
+        - {x: 54.5, y: 83.5}
+        - {x: 32.5, y: 96.5}
     - name: RobotBoyIdle04
       rect:
         serializedVersion: 2
@@ -141,8 +183,16 @@ TextureImporter:
         width: 275
         height: 275
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -35.5, y: 96.5}
+        - {x: -38.5, y: 87.5}
+        - {x: -38.5, y: -101.5}
+        - {x: -25.5, y: -127.5}
+        - {x: 32.5, y: -127.5}
+        - {x: 55.5, y: -21.5}
+        - {x: 55.5, y: 96.5}
     - name: RobotBoyIdle05
       rect:
         serializedVersion: 2
@@ -151,8 +201,18 @@ TextureImporter:
         width: 275
         height: 275
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -29.5, y: 96.5}
+        - {x: -38.5, y: 72.5}
+        - {x: -38.5, y: -47.5}
+        - {x: -28.5, y: -122.5}
+        - {x: -17.5, y: -127.5}
+        - {x: 37.5, y: -127.5}
+        - {x: 55.5, y: -3.5}
+        - {x: 55.5, y: 90.5}
+        - {x: 33.5, y: 96.5}
     - name: RobotBoyIdle06
       rect:
         serializedVersion: 2
@@ -161,8 +221,18 @@ TextureImporter:
         width: 275
         height: 275
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -31.5, y: 96.5}
+        - {x: -37.5, y: 74.5}
+        - {x: -37.5, y: -98.5}
+        - {x: -28.5, y: -121.5}
+        - {x: -22.5, y: -127.5}
+        - {x: 42.5, y: -127.5}
+        - {x: 55.5, y: -56.5}
+        - {x: 55.5, y: 73.5}
+        - {x: 40.5, y: 96.5}
     - name: RobotBoyIdle07
       rect:
         serializedVersion: 2
@@ -171,8 +241,15 @@ TextureImporter:
         width: 275
         height: 275
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -37.5, y: 96.5}
+        - {x: -37.5, y: -127.5}
+        - {x: 42.5, y: -127.5}
+        - {x: 55.5, y: -24.5}
+        - {x: 55.5, y: 81.5}
+        - {x: 31.5, y: 96.5}
     - name: RobotBoyIdle08
       rect:
         serializedVersion: 2
@@ -181,8 +258,18 @@ TextureImporter:
         width: 275
         height: 275
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -26.5, y: 96.5}
+        - {x: -37.5, y: 72.5}
+        - {x: -37.5, y: -79.5}
+        - {x: -30.5, y: -126.5}
+        - {x: -27.5, y: -127.5}
+        - {x: 38.5, y: -127.5}
+        - {x: 55.5, y: -41.5}
+        - {x: 55.5, y: 89.5}
+        - {x: 31.5, y: 96.5}
     - name: RobotBoyIdle09
       rect:
         serializedVersion: 2
@@ -191,8 +278,18 @@ TextureImporter:
         width: 275
         height: 275
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -28.5, y: 96.5}
+        - {x: -37.5, y: 54.5}
+        - {x: -37.5, y: -76.5}
+        - {x: -29.5, y: -122.5}
+        - {x: -20.5, y: -127.5}
+        - {x: 37.5, y: -127.5}
+        - {x: 55.5, y: -2.5}
+        - {x: 55.5, y: 89.5}
+        - {x: 35.5, y: 96.5}
     - name: RobotBoyIdle10
       rect:
         serializedVersion: 2
@@ -201,8 +298,17 @@ TextureImporter:
         width: 275
         height: 275
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -34.5, y: 96.5}
+        - {x: -37.5, y: 95.5}
+        - {x: -37.5, y: -73.5}
+        - {x: -24.5, y: -127.5}
+        - {x: 36.5, y: -127.5}
+        - {x: 55.5, y: -66.5}
+        - {x: 55.5, y: 82.5}
+        - {x: 49.5, y: 96.5}
     - name: RobotBoyIdle11
       rect:
         serializedVersion: 2
@@ -211,8 +317,18 @@ TextureImporter:
         width: 275
         height: 275
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 26.5, y: 96.5}
+        - {x: -24.5, y: 96.5}
+        - {x: -37.5, y: 76.5}
+        - {x: -37.5, y: -98.5}
+        - {x: -33.5, y: -127.5}
+        - {x: 28.5, y: -127.5}
+        - {x: 55.5, y: -22.5}
+        - {x: 55.5, y: 82.5}
+        - {x: 48.5, y: 93.5}
     - name: RobotBoyIdle12
       rect:
         serializedVersion: 2
@@ -221,8 +337,16 @@ TextureImporter:
         width: 275
         height: 275
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -37.5, y: 96.5}
+        - {x: -37.5, y: -104.5}
+        - {x: -36.5, y: -127.5}
+        - {x: 39.5, y: -127.5}
+        - {x: 55.5, y: -59.5}
+        - {x: 55.5, y: 82.5}
+        - {x: 36.5, y: 96.5}
     - name: RobotBoyIdle13
       rect:
         serializedVersion: 2
@@ -231,8 +355,18 @@ TextureImporter:
         width: 275
         height: 275
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -26.5, y: 96.5}
+        - {x: -37.5, y: 74.5}
+        - {x: -37.5, y: -96.5}
+        - {x: -32.5, y: -124.5}
+        - {x: -24.5, y: -127.5}
+        - {x: 40.5, y: -127.5}
+        - {x: 55.5, y: -58.5}
+        - {x: 55.5, y: 69.5}
+        - {x: 41.5, y: 96.5}
     - name: RobotBoyIdle14
       rect:
         serializedVersion: 2
@@ -241,8 +375,18 @@ TextureImporter:
         width: 275
         height: 275
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 54.5, y: 96.5}
+        - {x: -32.5, y: 96.5}
+        - {x: -37.5, y: 86.5}
+        - {x: -37.5, y: -100.5}
+        - {x: -24.5, y: -127.5}
+        - {x: 32.5, y: -127.5}
+        - {x: 28.5, y: -116.5}
+        - {x: 55.5, y: -21.5}
+        - {x: 55.5, y: 91.5}
     - name: RobotBoyIdle15
       rect:
         serializedVersion: 2
@@ -251,8 +395,16 @@ TextureImporter:
         width: 275
         height: 275
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -36.5, y: 96.5}
+        - {x: -37.5, y: 93.5}
+        - {x: -37.5, y: -99.5}
+        - {x: -25.5, y: -127.5}
+        - {x: 46.5, y: -127.5}
+        - {x: 55.5, y: -26.5}
+        - {x: 55.5, y: 96.5}
     - name: RobotBoyIdle16
       rect:
         serializedVersion: 2
@@ -261,8 +413,20 @@ TextureImporter:
         width: 275
         height: 275
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 30.5, y: 96.5}
+        - {x: -16.5, y: 96.5}
+        - {x: -31.5, y: 89.5}
+        - {x: -37.5, y: 46.5}
+        - {x: -37.5, y: -72.5}
+        - {x: -27.5, y: -121.5}
+        - {x: -14.5, y: -127.5}
+        - {x: 34.5, y: -127.5}
+        - {x: 55.5, y: -15.5}
+        - {x: 55.5, y: 68.5}
+        - {x: 38.5, y: 94.5}
     - name: RobotBoyIdle17
       rect:
         serializedVersion: 2
@@ -271,8 +435,16 @@ TextureImporter:
         width: 275
         height: 275
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -37.5, y: 96.5}
+        - {x: -37.5, y: -120.5}
+        - {x: -34.5, y: -127.5}
+        - {x: 49.5, y: -127.5}
+        - {x: 55.5, y: -45.5}
+        - {x: 55.5, y: 95.5}
+        - {x: 53.5, y: 96.5}
     - name: RobotBoyIdle18
       rect:
         serializedVersion: 2
@@ -281,8 +453,15 @@ TextureImporter:
         width: 275
         height: 275
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -37.5, y: 96.5}
+        - {x: -37.5, y: -127.5}
+        - {x: 38.5, y: -127.5}
+        - {x: 54.5, y: -22.5}
+        - {x: 54.5, y: 89.5}
+        - {x: 32.5, y: 96.5}
     - name: RobotBoyIdle19
       rect:
         serializedVersion: 2
@@ -291,8 +470,15 @@ TextureImporter:
         width: 275
         height: 275
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -38.5, y: 96.5}
+        - {x: -38.5, y: -127.5}
+        - {x: 34.5, y: -127.5}
+        - {x: 54.5, y: -8.5}
+        - {x: 54.5, y: 86.5}
+        - {x: 21.5, y: 96.5}
     - name: RobotBoyIdle20
       rect:
         serializedVersion: 2
@@ -301,8 +487,16 @@ TextureImporter:
         width: 275
         height: 275
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -34.5, y: 96.5}
+        - {x: -38.5, y: 82.5}
+        - {x: -38.5, y: -92.5}
+        - {x: -26.5, y: -120.5}
+        - {x: -19.5, y: -127.5}
+        - {x: 54.5, y: -127.5}
+        - {x: 54.5, y: 96.5}
     - name: RobotBoyIdle21
       rect:
         serializedVersion: 2
@@ -311,8 +505,15 @@ TextureImporter:
         width: 275
         height: 275
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -38.5, y: 96.5}
+        - {x: -38.5, y: -127.5}
+        - {x: 36.5, y: -127.5}
+        - {x: 53.5, y: -45.5}
+        - {x: 53.5, y: 69.5}
+        - {x: 46.5, y: 96.5}
     - name: RobotBoyIdle22
       rect:
         serializedVersion: 2
@@ -321,8 +522,17 @@ TextureImporter:
         width: 275
         height: 275
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -29.5, y: 96.5}
+        - {x: -38.5, y: 94.5}
+        - {x: -38.5, y: -47.5}
+        - {x: -28.5, y: -122.5}
+        - {x: -21.5, y: -127.5}
+        - {x: 39.5, y: -127.5}
+        - {x: 53.5, y: -47.5}
+        - {x: 53.5, y: 96.5}
     - name: RobotBoyIdle23
       rect:
         serializedVersion: 2
@@ -331,8 +541,16 @@ TextureImporter:
         width: 275
         height: 275
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -38.5, y: 96.5}
+        - {x: -38.5, y: -107.5}
+        - {x: -25.5, y: -127.5}
+        - {x: 35.5, y: -127.5}
+        - {x: 53.5, y: -54.5}
+        - {x: 53.5, y: 77.5}
+        - {x: 43.5, y: 96.5}
     - name: RobotBoyIdle24
       rect:
         serializedVersion: 2
@@ -341,8 +559,18 @@ TextureImporter:
         width: 275
         height: 275
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 28.5, y: 96.5}
+        - {x: -35.5, y: 96.5}
+        - {x: -38.5, y: 92.5}
+        - {x: -38.5, y: -112.5}
+        - {x: -37.5, y: -127.5}
+        - {x: 39.5, y: -127.5}
+        - {x: 52.5, y: -10.5}
+        - {x: 52.5, y: 81.5}
+        - {x: 50.5, y: 92.5}
     - name: RobotBoyIdle25
       rect:
         serializedVersion: 2
@@ -351,8 +579,16 @@ TextureImporter:
         width: 275
         height: 275
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -29.5, y: 96.5}
+        - {x: -38.5, y: 77.5}
+        - {x: -38.5, y: -93.5}
+        - {x: -23.5, y: -127.5}
+        - {x: 42.5, y: -127.5}
+        - {x: 52.5, y: -42.5}
+        - {x: 52.5, y: 96.5}
     - name: RobotBoyIdle26
       rect:
         serializedVersion: 2
@@ -361,8 +597,15 @@ TextureImporter:
         width: 275
         height: 275
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -38.5, y: 96.5}
+        - {x: -38.5, y: -127.5}
+        - {x: 39.5, y: -127.5}
+        - {x: 52.5, y: -54.5}
+        - {x: 52.5, y: 75.5}
+        - {x: 45.5, y: 96.5}
     - name: RobotBoyIdle27
       rect:
         serializedVersion: 2
@@ -371,8 +614,16 @@ TextureImporter:
         width: 275
         height: 275
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -28.5, y: 96.5}
+        - {x: -38.5, y: 82.5}
+        - {x: -38.5, y: -124.5}
+        - {x: -37.5, y: -127.5}
+        - {x: 33.5, y: -127.5}
+        - {x: 52.5, y: -118.5}
+        - {x: 52.5, y: 96.5}
     - name: RobotBoyIdle28
       rect:
         serializedVersion: 2
@@ -381,8 +632,17 @@ TextureImporter:
         width: 275
         height: 275
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 20.5, y: 96.5}
+        - {x: -28.5, y: 96.5}
+        - {x: -38.5, y: 89.5}
+        - {x: -38.5, y: -127.5}
+        - {x: 39.5, y: -127.5}
+        - {x: 52.5, y: -27.5}
+        - {x: 52.5, y: 54.5}
+        - {x: 46.5, y: 83.5}
     - name: RobotBoyIdle29
       rect:
         serializedVersion: 2
@@ -391,8 +651,20 @@ TextureImporter:
         width: 275
         height: 275
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 20.5, y: 96.5}
+        - {x: -36.5, y: 96.5}
+        - {x: -38.5, y: 94.5}
+        - {x: -38.5, y: -104.5}
+        - {x: -35.5, y: -127.5}
+        - {x: 34.5, y: -127.5}
+        - {x: 52.5, y: -21.5}
+        - {x: 52.5, y: 84.5}
+        - {x: 51.5, y: 88.5}
+    outline: []
   spritePackingTag: 
   userData: 
   assetBundleName: 
+  assetBundleVariant: 
