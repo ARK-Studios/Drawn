@@ -39,7 +39,6 @@ namespace ARK.Player
             respawnChar = GetComponent<Respawn>();
             respawnChar.charSpawnPos = m_Rigidbody2D.position;
             isDead = false;
-            lives = 5;
         }
 
         private void Start()

@@ -15,8 +15,7 @@ public class SavePoint : MonoBehaviour
     void Start ()
     {
         savePtPic = GetComponent<SpriteRenderer>();
-        if (savePtPic.sprite != savePoint)
-            savePtPic.sprite = active;
+        savePtPic.sprite = active;
     }
     void Update ()
     {
