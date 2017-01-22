@@ -7,7 +7,12 @@ public class Respawn : MonoBehaviour
 {
     public Vector2 charSpawnPos;
     public bool respawn = false;
-    public PlayerProfile player;
+    private PlayerProfile player;
+
+    private void Awake()
+    {
+        player = GetComponent<PlayerProfile>();
+    }
 
     public void RespawnChar(Rigidbody2D character)
     {
