@@ -14,21 +14,6 @@ namespace ARK.Player
         [SerializeField] public int lives;
         public Collider2D currSavePt;
 
-        #region Inspector
-        // [SpineAnimation] attribute allows an Inspector dropdown of Spine animation names coming form SkeletonAnimation.
-        [SpineAnimation]
-        public string runAnimationName = "Move";
-
-        [SpineAnimation]
-        public string idleAnimationName = "Idle";
-
-        [SpineAnimation]
-        public string jumpAnimationName = "Jump";
-
-        [SpineAnimation]
-        public string fallAnimationName = "Fall";
-        #endregion
-
         private Transform m_GroundCheck;    // A position marking where to check if the player is grounded.
         public float k_GroundedRadius = .4f; // Radius of the overlap circle to determine if grounded
         private bool m_Grounded;            // Whether or not the player is grounded.
@@ -42,14 +27,6 @@ namespace ARK.Player
         private bool m_FacingRight = true;  // For determining which way the player is currently facing.
 
         private Respawn respawnChar;
-        // Spine.AnimationState and Spine.Skeleton are not Unity-serialized objects. You will not see them as fields in the inspector.
-        public Spine.AnimationState spineAnimationState;
-        public Spine.Skeleton skeleton;
-
-        SkeletonAnimation skeletonAnimation;
-
-        string currentXAnimation = "Idle";
-        string currentYAnimation = "None";
 
         private void Awake()
         {
@@ -67,10 +44,6 @@ namespace ARK.Player
 
         private void Start()
         {
-            // Make sure you get these AnimationState and Skeleton references in Start or Later. Getting and using them in Awake is not guaranteed by default execution order.
-            skeletonAnimation = GetComponent<SkeletonAnimation>();
-            spineAnimationState = skeletonAnimation.state;
-            skeleton = skeletonAnimation.skeleton;
         }
 
         private void FixedUpdate()
@@ -148,37 +121,6 @@ namespace ARK.Player
             {
                 m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
             }
-            
-            
-            if (m_Rigidbody2D.velocity.x == 0 && currentXAnimation == runAnimationName)
-            {
-                skeletonAnimation.state.SetAnimation(0, idleAnimationName, true);
-                currentXAnimation = idleAnimationName;
-            }
-            else if (m_Rigidbody2D.velocity.x != 0 && currentXAnimation == idleAnimationName)
-            {
-                skeletonAnimation.state.SetAnimation(0, runAnimationName, true);
-                currentXAnimation = runAnimationName;
-            }
-
-            if (m_Grounded && m_Rigidbody2D.velocity.y > 0)
-            {
-                skeletonAnimation.state.SetAnimation(1, jumpAnimationName, false);
-                currentYAnimation = jumpAnimationName;
-            }
-            else if (!m_Grounded && !m_Falling && m_Rigidbody2D.velocity.y < 0)
-            {
-                skeletonAnimation.state.SetAnimation(1, fallAnimationName, false);
-                currentYAnimation = fallAnimationName;
-                m_Falling = true;
-            }
-            else if (m_Grounded && m_Rigidbody2D.velocity.y == 0)
-            {
-                ARKLogger.LogMessage(eLogCategory.Control,
-                    eLogLevel.Info,
-                    "Clearing Vertical Animation");
-                skeletonAnimation.state.SetEmptyAnimation(1, 1.0f);
-            }
 
             if (m_Grounded)
             {
@@ -202,8 +144,6 @@ namespace ARK.Player
         {
             // Switch the way the player is labelled as facing.
             m_FacingRight = !m_FacingRight;
-
-            skeletonAnimation.skeleton.FlipX = !m_FacingRight;
         }
 
         void OnTriggerEnter2D(Collider2D collider)
