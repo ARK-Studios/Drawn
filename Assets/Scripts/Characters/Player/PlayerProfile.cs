@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using Spine.Unity;
 using Assets.Scripts.Utility;
 
 namespace ARK.Player
