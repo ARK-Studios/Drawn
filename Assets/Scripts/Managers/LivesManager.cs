@@ -12,15 +12,13 @@ public class LivesManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        int[] lives = SplitLives(player.lives);
-        lives_ones_ui.sprite = reg_nums_sprites[lives[0]];
-        lives_tenths_ui.sprite = reg_nums_sprites[lives[1]];
+        UpdatePlayerLivesUi();
     }
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        UpdatePlayerLivesUi();
+    }
 
     private int[] SplitLives (int lives)
     {
@@ -30,5 +28,12 @@ public class LivesManager : MonoBehaviour {
         split_lives[1] = lives / 10;
 
         return split_lives;
+    }
+
+    private void UpdatePlayerLivesUi()
+    {
+        int[] lives = SplitLives(player.lives);
+        lives_ones_ui.sprite = reg_nums_sprites[lives[0]];
+        lives_tenths_ui.sprite = reg_nums_sprites[lives[1]];
     }
 }
