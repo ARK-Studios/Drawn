@@ -9,12 +9,23 @@ public class PropertyID
 {
     public SerializedProperty Property { get; set; }
     public string Id { get; set; }
+
+    public PropertyID(string id, SerializedProperty property)
+    {
+        this.Id = id;
+        this.Property = property;
+    }
+}
+
+
+public class ReferenceID
+{
+    public SerializedProperty Property { get; set; }
     public FieldInfo Field { get; set; }
     public object Target { get; set; }
 
-    public PropertyID(string id, SerializedProperty property, FieldInfo field, object target)
+    public ReferenceID(SerializedProperty property, FieldInfo field, object target)
     {
-        this.Id = id;
         this.Property = property;
         this.Field = field;
         this.Target = target;
@@ -24,8 +35,14 @@ public class PropertyID
 
 public class PrefabInterface : MonoBehaviour
 {
+    // Storage of Serialized objects so they don't go out of scope
     public List<SerializedObject> objects = new List<SerializedObject>();
+
+    // List of shown Properties in the Inspector
     public List<PropertyID> propertyIds = new List<PropertyID>();
+
+    // List of Attribute variables to update
+    public List<ReferenceID> referenceIds = new List<ReferenceID>();
 }
 
 
@@ -36,7 +53,7 @@ public class PrefabInterfaceInspector : Editor
 
     public void OnEnable()
     {
-        // Initail property scan
+        this.myTarget = (target as PrefabInterface);
     }
 
     public override void OnInspectorGUI()
@@ -53,11 +70,8 @@ public class PrefabInterfaceInspector : Editor
             SetDependancies();
         }
 
-        this.myTarget = (target as PrefabInterface);
-
         foreach (PropertyID propertyId in this.myTarget.propertyIds)
         {
-            // Build Interface from Properties List
             EditorGUILayout.PropertyField(propertyId.Property, new GUIContent(propertyId.Id));
         }
 
@@ -71,75 +85,76 @@ public class PrefabInterfaceInspector : Editor
 
         MonoBehaviour start = (target as MonoBehaviour);
         this.myTarget.propertyIds.Clear();
+        this.myTarget.referenceIds.Clear();
         StoreInterfaces(start.transform);
         RecursiveScan(start.transform);
     }
 
     private void SetDependancies()
     {
-        foreach(PropertyID prop in this.myTarget.propertyIds)
+        foreach(ReferenceID refId in this.myTarget.referenceIds)
         {
             object value = null;
 
-            switch(prop.Property.propertyType)
+            switch(refId.Property.propertyType)
             {
                 case SerializedPropertyType.Integer:
-                    value = prop.Property.intValue;
+                    value = refId.Property.intValue;
                     break;
                 case SerializedPropertyType.Boolean:
-                    value = prop.Property.boolValue;
+                    value = refId.Property.boolValue;
                     break;
                 case SerializedPropertyType.Float:
-                    value = prop.Property.floatValue;
+                    value = refId.Property.floatValue;
                     break;
                 case SerializedPropertyType.String:
-                    value = prop.Property.stringValue;
+                    value = refId.Property.stringValue;
                     break;
                 case SerializedPropertyType.Color:
-                    value = prop.Property.colorValue;
+                    value = refId.Property.colorValue;
                     break;
                 case SerializedPropertyType.ObjectReference:
-                    value = prop.Property.objectReferenceValue;
+                    value = refId.Property.objectReferenceValue;
                     break;
                 case SerializedPropertyType.LayerMask:
-                    value = prop.Property.stringValue;
+                    value = refId.Property.stringValue;
                     break;
                 case SerializedPropertyType.Enum:
-                    value = prop.Property.enumValueIndex;
+                    value = refId.Property.enumValueIndex;
                     break;
                 case SerializedPropertyType.Vector2:
-                    value = prop.Property.vector2Value;
+                    value = refId.Property.vector2Value;
                     break;
                 case SerializedPropertyType.Vector3:
-                    value = prop.Property.vector3Value;
+                    value = refId.Property.vector3Value;
                     break;
                 case SerializedPropertyType.Vector4:
-                    value = prop.Property.vector4Value;
+                    value = refId.Property.vector4Value;
                     break;
                 case SerializedPropertyType.Rect:
-                    value = prop.Property.rectValue;
+                    value = refId.Property.rectValue;
                     break;
                 case SerializedPropertyType.ArraySize:
-                    value = prop.Property.arraySize;
+                    value = refId.Property.arraySize;
                     break;
                 case SerializedPropertyType.Character:
-                    value = prop.Property.stringValue[0];
+                    value = refId.Property.stringValue[0];
                     break;
                 case SerializedPropertyType.AnimationCurve:
-                    value = prop.Property.animationCurveValue;
+                    value = refId.Property.animationCurveValue;
                     break;
                 case SerializedPropertyType.Bounds:
-                    value = prop.Property.boundsValue;
+                    value = refId.Property.boundsValue;
                     break;
                 case SerializedPropertyType.Gradient:
-                    value = prop.Property.boolValue;
+                    value = refId.Property.rectValue;
                     break;
                 case SerializedPropertyType.Quaternion:
-                    value = prop.Property.quaternionValue;
+                    value = refId.Property.quaternionValue;
                     break;
             }
 
-            prop.Field.SetValue(prop.Target, value);
+            refId.Field.SetValue(refId.Target, value);
         }
     }
 
@@ -161,8 +176,11 @@ public class PrefabInterfaceInspector : Editor
                 if (null != interfaceField)
                 {
                     SerializedProperty prop = serObj.FindProperty(field.Name);
-                    PropertyID propId = new PropertyID(b.name + ":" + childClass.ToString() + " " + prop.displayName, prop, field, b);
+                    PropertyID propId = new PropertyID(b.name + ":" + childClass.ToString() + " " + prop.displayName, prop);
                     this.myTarget.propertyIds.Add(propId);
+
+                    ReferenceID refId = new ReferenceID(prop, field, b);
+                    this.myTarget.referenceIds.Add(refId);
                 }
             }
         }
