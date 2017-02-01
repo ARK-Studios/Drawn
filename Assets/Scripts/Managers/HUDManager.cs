@@ -20,6 +20,7 @@ namespace ARK.Managers
             // Set up the reference.
             anim = GetComponent<Animator>();
             //pauseMenu = GameObject.FindGameObjectsWithTag("PauseMenu");
+            Time.timeScale = 1;
             setObjects(pauseMenu, false);
             setObjects(gameoverMenuButtons, false);
         }
