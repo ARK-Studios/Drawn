@@ -150,6 +150,12 @@ namespace ARK.Player
             {
                 currSavePt = collider;
             }
+            if(collider.tag == "LifeUp")
+            {
+                Destroy(collider.gameObject);
+                lives++;
+
+            }
         }
     }
 }
