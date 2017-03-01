@@ -5,15 +5,16 @@ using ARK.Player;
 
 public class Respawn : MonoBehaviour
 {
-    public Vector2 charSpawnPos;
-    public bool respawn = false;
-    private PlayerProfile player;
+    public Vector2 charSpawnPos;    //  Character respawn position
+    public bool respawn = false;    // decide if character needs respawn
+    private PlayerProfile player;   // current player profile
 
     private void Awake()
     {
         player = GetComponent<PlayerProfile>();
     }
 
+    // set character postion to the last saved point
     public void RespawnChar(Rigidbody2D character)
     {
         Vector2 respawnPos;
