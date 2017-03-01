@@ -13,6 +13,7 @@ namespace ARK.Player.Controller
         private void Awake()
         {
             m_Character = GetComponent<PlayerProfile>();
+            m_whatIsGround = LayerMask.NameToLayer("Everything");
         }
 
 
@@ -89,6 +90,12 @@ namespace ARK.Player.Controller
             if (collider.tag == "SavePt")
             {
                 m_Character.currSavePt = collider;
+            }
+            if (collider.tag == "LifeUp")
+            {
+                Destroy(collider.gameObject);
+                m_Character.lives++;
+
             }
         }
     }

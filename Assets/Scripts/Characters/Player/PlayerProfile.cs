@@ -19,6 +19,7 @@ namespace ARK.Player
             CeilingCheck = transform.Find("CeilingCheck");
             Anim = GetComponent<Animator>();
             Charbody2D = GetComponent<Rigidbody2D>();
+            Charbody2D.gravityScale = 2;
             RespawnChar = GetComponent<Respawn>();
             RespawnChar.charSpawnPos = Charbody2D.position;
             IsDead = false;

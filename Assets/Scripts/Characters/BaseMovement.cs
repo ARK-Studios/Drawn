@@ -8,7 +8,8 @@ namespace ARK.Base.Movement
     [RequireComponent(typeof(BaseProfile))]
     public class BaseMovement : MonoBehaviour
     {
-        [SerializeField] protected LayerMask m_whatIsGround;                // A mask determining what is ground to the character
+        [SerializeField]
+        protected LayerMask m_whatIsGround;                // A mask determining what is ground to the character
         [SerializeField] protected float MaxSpeed = 8f;                    // The fastest the player can travel in the x axis.
         [SerializeField] protected float JumpForce = 400f;                  // Amount of force added when the player jumps.
         [SerializeField] protected float CrouchSpeed = .36f;                // Amount of maxSpeed applied to crouching movement. 1 = 100%
