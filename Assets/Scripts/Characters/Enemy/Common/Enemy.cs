@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Utility;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour {
@@ -12,6 +13,7 @@ public class Enemy : MonoBehaviour {
     public float movementSpeed = 0.5f;
     private Transform mTransform;
     protected bool FacingRight = false;         // For determining which way the player is currently facing.
+    private SpriteRenderer mSpriteRenderer;
 
     // Use this for initialization
     void Start () {
@@ -19,6 +21,7 @@ public class Enemy : MonoBehaviour {
         anim = GetComponent<Animator>();
         mRigidBody = GetComponent<Rigidbody2D>();
         mTransform = transform;
+        mSpriteRenderer = GetComponent<SpriteRenderer>();
     }
 	
 	// Update is called once per frame
@@ -31,22 +34,40 @@ public class Enemy : MonoBehaviour {
 
     private void MoveToPlayer()
     {
-        mTransform.LookAt(player.transform.position);
-        mTransform.Rotate(new Vector2(0, -90), Space.Self); //correcting the original rotation
-        print(Vector2.Distance(player.transform.position, mTransform.position));
+        
         if (Vector2.Distance(player.transform.position, mTransform.position) > minDistance)
         {
-            //Move towards player
-            mTransform.Translate(new Vector2(movementSpeed * Time.deltaTime, 0));
+            //Flip enemy to face the player
+            Flip();
+        
+            //move enemy towards player
         }
     }
 
+    private void Flip()
+    {
+        Vector2 h = (player.transform.position - mTransform.position).normalized;
+        float dot = Vector2.Dot(h, mTransform.right);
+        ARKLogger.LogMessage(eLogCategory.General, eLogLevel.Info, dot.ToString());
+        //if dot is negative the player is behind the enemy so flip the sprite
+        if (dot < 0)
+        {
+            transform.localRotation = Quaternion.Euler(0, 180, 0);
+            ARKLogger.LogMessage(eLogCategory.General, eLogLevel.Info, "a");
+        }
+        else if (dot > 0)
+        {
+            transform.localRotation = Quaternion.Euler(0, 180, 0);
+            ARKLogger.LogMessage(eLogCategory.General, eLogLevel.Info, "b");
+        }
+    }
     public void PlayerEnteredRange(Collider2D collision)
     {
         print("Player detected!");
+        playerInRange = true;
         if (chasePlayer)
         {
-            playerInRange = true;
+            
         }
     }
 
