@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,11 +24,10 @@ public class PathFollow : MonoBehaviour {
         Vector3 dirNorm = dir.normalized;
 
         transform.Translate(dirNorm * speed *Time.fixedDeltaTime);
-
         if(dir.magnitude <= pathPointRadius)
         {
             currentPath++;
-            if(currentPath >= pathPoints.Length)
+            if (currentPath >= pathPoints.Length)
             {
                 currentPath = 0;
             }
