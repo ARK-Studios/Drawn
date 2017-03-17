@@ -95,7 +95,12 @@ namespace ARK.Player.Controller
             {
                 Destroy(collider.gameObject);
                 m_Character.lives++;
-
+            }
+            if(collider.tag == "LifeDown")
+            {
+                Destroy(collider.gameObject);
+                m_Character.lives--;
+                CharacterRespawn();
             }
         }
     }

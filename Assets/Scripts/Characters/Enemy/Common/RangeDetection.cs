@@ -18,6 +18,5 @@ public class RangeDetection : MonoBehaviour {
         {
             parent.PlayerExitedRange(collision);
         }
-        
     }
 }
