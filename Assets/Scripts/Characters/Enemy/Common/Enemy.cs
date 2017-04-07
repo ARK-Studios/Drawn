@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour {
     public bool playerInRange = false;
     public float movementSpeed = 0.5f;
     protected bool FacingRight = false;         // For determining which way the player is currently facing.
-    private SpriteRenderer mSpriteRenderer;
+    public SpriteRenderer mSpriteRenderer;
 
     // Use this for initialization
     public virtual void Start () {
@@ -46,11 +46,9 @@ public class Enemy : MonoBehaviour {
         if (dot < 0)
         {
             transform.localRotation = Quaternion.Euler(0, 180, 0);
-            print("Player behind");
         }
         else if (dot > 0)
         {
-            print("Player in front");
         }
     }
 

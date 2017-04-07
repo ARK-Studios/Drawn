@@ -33,5 +33,10 @@ namespace ARK.Player
         {
             return Charbody2D.position;
         }
+
+        public void DamagePlayer()
+        {
+            lives--;
+        }
     }
 }

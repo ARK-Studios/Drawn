@@ -102,6 +102,37 @@ namespace ARK.Player.Controller
                 m_Character.lives--;
                 CharacterRespawn();
             }
+
+        }
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            print("test");
+            if (collision.gameObject.tag == "Enemy")
+            {
+                ARKLogger.LogMessage(eLogCategory.Control,
+                   eLogLevel.Info,
+                   "Player collided with enemy");
+                if (GetComponent<Collider>().GetComponent<StateChanger>().isHostile)
+                {
+                    m_Character.lives--;
+                    CharacterRespawn();
+                }
+            }
+        }
+        private void OnCollisionStay2D(Collision2D collision)
+        {
+            print("test");
+            if (collision.gameObject.tag == "Enemy")
+            {
+                ARKLogger.LogMessage(eLogCategory.Control,
+                   eLogLevel.Info,
+                   "player is colliding with enemy");
+                if (collision.gameObject.GetComponent<StateChanger>().isHostile)
+                {
+                    m_Character.lives--;
+                    CharacterRespawn();
+                }
+            }
         }
     }
 }
