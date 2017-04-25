@@ -12,6 +12,13 @@ public class RangeDetection : MonoBehaviour {
         }
     }
 
+    public void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            parent.PlayerInRange(collision);
+        }
+    }
     public void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.tag == "Player")

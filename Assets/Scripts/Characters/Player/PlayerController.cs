@@ -111,7 +111,7 @@ namespace ARK.Player.Controller
                 ARKLogger.LogMessage(eLogCategory.Control,
                    eLogLevel.Info,
                    "Player collided with enemy");
-                if (GetComponent<Collider>().GetComponent<StateChanger>().isHostile)
+                if (collision.gameObject.GetComponent<Enemy>().isHostile)
                 {
                     m_Character.lives--;
                     CharacterRespawn();
@@ -120,13 +120,12 @@ namespace ARK.Player.Controller
         }
         private void OnCollisionStay2D(Collision2D collision)
         {
-            print("test");
             if (collision.gameObject.tag == "Enemy")
             {
                 ARKLogger.LogMessage(eLogCategory.Control,
                    eLogLevel.Info,
                    "player is colliding with enemy");
-                if (collision.gameObject.GetComponent<StateChanger>().isHostile)
+                if (collision.gameObject.GetComponent<Enemy>().isHostile)
                 {
                     m_Character.lives--;
                     CharacterRespawn();

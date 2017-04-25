@@ -4,13 +4,12 @@ using Assets.Scripts.Utility;
 using UnityEngine;
 
 public class StateChanger : Enemy{
-    public float period = 5f;      //in seconds
-    public bool isHostile = false;
     private float nextState = 0.0f;
-    public Sprite hostileSprite;
-    public Sprite friendlySprite;
     private BoxCollider2D boxCollider2d;
 
+    public float period = 5f;      //in seconds
+    public Sprite hostileSprite;
+    public Sprite friendlySprite;
     // Use this for initialization
     public override void Start () {
         base.Start();
@@ -32,12 +31,12 @@ public class StateChanger : Enemy{
         if (isHostile)
         {
             isHostile = false;
-            mSpriteRenderer.sprite = friendlySprite;
+            spriteRenderer.sprite = friendlySprite;
         }
         else
         {
             isHostile = true;
-            mSpriteRenderer.sprite = hostileSprite;
+            spriteRenderer.sprite = hostileSprite;
         }
     }
 }
