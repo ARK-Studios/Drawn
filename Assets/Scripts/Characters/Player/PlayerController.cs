@@ -106,7 +106,6 @@ namespace ARK.Player.Controller
         }
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            print("test");
             if (collision.gameObject.tag == "Enemy")
             {
                 ARKLogger.LogMessage(eLogCategory.Control,

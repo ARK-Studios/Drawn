@@ -26,7 +26,27 @@ public class Thrower : Enemy {
     void ThrowProjectile()
     {
         GameObject go = Instantiate(projectile, transform.position, transform.rotation) as GameObject;
-        FacePlayer();
-        go.GetComponent<Rigidbody2D>().velocity = new Vector2(transform.localScale.x, 1) * force;
+        //FacePlayer();
+
+        //determine if the player is infront or behind the enemy
+        int rotationFactor = detectPlayer();
+        go.GetComponent<Rigidbody2D>().velocity = new Vector2(rotationFactor * transform.localScale.x, 1) * force;
+    }
+
+    int detectPlayer()
+    {
+        Vector2 h = (transform.position - player.transform.position).normalized;
+        float dot = Vector2.Dot(h, transform.right);
+        //if dot is negative the player is behind the enemy so flip the sprite
+        if (dot < 0)
+        {
+            mSpriteRenderer.flipX = false;
+            return 1;
+        }
+        else 
+        {
+            mSpriteRenderer.flipX = true;
+            return -1;
+        }
     }
 }

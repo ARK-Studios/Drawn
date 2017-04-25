@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour {
     private Animator anim;
-    private GameObject player;
+    public GameObject player;
     private Rigidbody2D mRigidBody;
     public float minDistance = 2f;
     public bool chasePlayer = false;
@@ -46,9 +46,11 @@ public class Enemy : MonoBehaviour {
         if (dot < 0)
         {
             transform.localRotation = Quaternion.Euler(0, 180, 0);
+            print(dot);
         }
         else if (dot > 0)
         {
+            print(dot);
         }
     }
 
